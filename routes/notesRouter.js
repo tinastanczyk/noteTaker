@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 // Helper method for generating unique ids
 const uuid = require('../helpers/uuid');
+const { json } = require('express');
 // Promise version of fs.readFile
 const readFromFile = util.promisify(fs.readFile);
 
@@ -49,6 +50,14 @@ router.post('/', (req, res) => {
     res.error('Error in adding note');
   }
 });
-
+// function testNotes(){
+//   return JSON.parse(fs.readFileSync('./db/db.json'));
+// }
+router.delete('/:id', (req, res) => {
+  const notes = JSON.parse(fs.readFileSync('./db/db.json'));
+  const noteExist = notes.filter(note => note.id !== req.params.id);
+  writeToFile('./db/db.json', noteExist);
+  res.json({ok: true});
+})
 
 module.exports = router;
