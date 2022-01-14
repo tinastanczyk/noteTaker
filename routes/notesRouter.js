@@ -24,13 +24,13 @@ const readAndAppend = (content, file) => {
   });
 };
 
-// GET Route for retrieving all the tips
+// GET Route for retrieving all the notes
 router.get('/', (req, res) => {
   console.info(`${req.method} request received for notes`);
   readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
-// POST Route for a new UX/UI tip
+// POST Route for a new note
 router.post('/', (req, res) => {
   console.info(`${req.method} request received to add a note`);
 
@@ -40,7 +40,7 @@ router.post('/', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuid(),
+      id: uuid(),
     };
 
     readAndAppend(newNote, './db/db.json');
@@ -49,5 +49,6 @@ router.post('/', (req, res) => {
     res.error('Error in adding note');
   }
 });
+
 
 module.exports = router;
