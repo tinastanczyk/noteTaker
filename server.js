@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+// requiring routes folder
 const api = require('./routes');
 
 const PORT = process.env.PORT || 3001;
